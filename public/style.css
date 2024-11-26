@@ -1,0 +1,19 @@
+#items{
+    padding: 10px;
+    background-color: rgb(255, 0, 0);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+
+}
+.card-container{
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 5px 5px 5px black;
+}
+.navbar{
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.671);
+    box-shadow: 5px 5px 5px black;
+}
