@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemId = this.dataset.id;
             const itemName = card.querySelector('.card-title').innerText;
             const category = card.querySelector('.card-text:nth-child(2)').innerText;
-            const price = card.querySelector('.card-text:nth-child(3)').innerText;
+            let price = card.querySelector('.card-text:nth-child(3)').innerText;
+
+            // Remove any non-numeric characters from the price (e.g., ₹, spaces)
+            price = parseFloat(price.replace(/[^\d.]/g, ''));
+
             const ingredients = Array.from(card.querySelectorAll('.badge')).map(badge =>
                 badge.innerText);
             const imageUrl = card.querySelector('img').src;
@@ -43,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Save the updated orders list back to localStorage
             localStorage.setItem('orders', JSON.stringify(orders));
+            console.log(orders);
 
             // Update the cart badge
             addCart(orders);

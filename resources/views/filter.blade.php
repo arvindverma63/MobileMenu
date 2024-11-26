@@ -7,53 +7,6 @@
 
     </style>
     <div class="container" style="margin-top: 16%; margin-bottom: 10%;">
-        <!-- Delivery Section -->
-        <div class="card-container d-flex justify-content-between align-items-center mb-3">
-            <div>
-                <small class="text-muted">Table Number</small>
-                <h6 class="mb-0">{{ $tableNo }} <i class="fa-solid fa-table"></i></h6>
-            </div>
-            <button class="btn btn-link p-0 text-primary">
-                <i class="fas fa-gift"></i> Offers
-            </button>
-        </div>
-
-        <!-- Offer Banner -->
-        <div id="offerCarousel" class="carousel slide mb-3" data-mdb-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="card bg-danger text-white border rounded">
-                        <img src="foodImages/1.jpeg" class="card-img" alt="Offer">
-                        <div
-                            class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
-                            <h3 class="fw-bold">50% OFF</h3>
-                            <p class="mb-0">First Order</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @if (!empty($category))
-            <h5 class="mb-3">Categories</h5>
-            <div class="card-container d-flex overflow-auto category-scroll">
-                @foreach ($category as $cat)
-                    <div class="me-3 text-center" style="flex: 0 0 auto;">
-                        <a href="/filter/{{$cat['id']}}">
-                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border"
-                            style="width: 80px; height: 80px; overflow: hidden;">
-                            <img src="{{ $cat['categoryImage'] }}" alt="" class="img-fluid">
-                        </div>
-                        </a>
-                        <p class="mt-2 small text-muted mb-0">{{ $cat['categoryName'] }}</p>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <p>No categories available.</p>
-        @endif
-
-
 
         <!-- Restaurant Section -->
         <div class="restaurant-section d-flex justify-content-between align-items-center mt-4 mb-3" id="items">

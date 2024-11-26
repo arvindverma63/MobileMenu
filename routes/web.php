@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::get('/getData', [
     'tableNo' => Cache::get('tableNo')
 ]);
 Route::get('/home',[MenuController::class,'homeBack'])->name('home');
+Route::get('/filter/{id}',[FilterController::class,'filter']);
