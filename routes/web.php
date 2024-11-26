@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/menu', [MenuController::class, 'welcome'])->name('home');
+Route::get('/menu', [MenuController::class, 'welcome']);
 Route::get('/cart', [MenuController::class, 'cart'])->name('cart');
 Route::get('/getData', [
     'restaurantId' => Cache::get('restaurantId'),
     'tableNo' => Cache::get('tableNo')
 ]);
+Route::get('/home',[MenuController::class,'homeBack'])->name('home');

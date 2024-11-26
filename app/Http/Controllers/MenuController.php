@@ -46,6 +46,19 @@ class MenuController extends Controller
         }
     }
 
+    public function homeBack(){
+        $response = Http::get(env('API_BASE_URL') . '/webMenu', [
+            'restaurantId' => Cache::get('restaurantId'),
+            'tableNo' => Cache::get('tableNo'),
+        ]);
+
+
+        // Check if the request was successful (200 OK)
+        if ($response->successful()) {
+            return view('index',['data'=>$response->json(),'tableNo'=>Cache::get('tableNo')]);
+        }
+    }
+
     public function cart(){
         return view('cart');
     }

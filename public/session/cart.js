@@ -87,18 +87,5 @@
     document.addEventListener('DOMContentLoaded', populateCart);
 
     function makeOrder(){
-        var username = document.getElementById('username').value;
-        var email = document.getElementById('email').value;
-        var phone = document.getElementById('phone').value;
-        var address = document.getElementById('address').value;
 
-
-        fetch('/getData')
-        .then(response=>response.json())
-        .then(data=>{
-            var restaurantId = data.restaurantId;
-            var tableNo = data.tableNo;
-
-            fetch('http://localhost:8000/api/addOrder')
-        })
     }
