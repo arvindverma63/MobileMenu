@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
 {
@@ -48,25 +50,46 @@ class MenuController extends Controller
 
     public function homeBack()
     {
-        $response = Http::get(env('API_BASE_URL') . '/webMenu', [
-            'restaurantId' => Cache::get('restaurantId'),
-            'tableNo' => Cache::get('tableNo'),
-        ]);
+        // Validate required cache keys
+        $restaurantId = Cache::get('restaurantId');
+        $tableNo = Cache::get('tableNo');
 
-        $response2 = Http::get(env('API_BASE_URL') . '/webMenu/categories', [
-            'restaurantId' => Cache::get('restaurantId'),
-        ]);
+        if (!$restaurantId || !$tableNo) {
+            return redirect()->back()->withErrors(['error' => 'Restaurant ID or Table Number is missing.']);
+        }
 
-
-        // Check if the request was successful (200 OK)
-        if ($response->successful()) {
-            return view('index', [
-                'data' => $response->json(),
-                'tableNo' => Cache::get('tableNo'),
-                'category' => $response2->json(),
+        try {
+            // Fetch menu data
+            $response = Http::get(env('API_BASE_URL') . '/webMenu', [
+                'restaurantId' => $restaurantId,
+                'tableNo' => $tableNo,
             ]);
+
+            // Fetch category data
+            $response2 = Http::get(env('API_BASE_URL') . '/webMenu/categories', [
+                'restaurantId' => $restaurantId,
+            ]);
+
+            // Check if both responses are successful
+            if ($response->successful() && $response2->successful()) {
+                return view('index', [
+                    'data' => $response->json(),
+                    'tableNo' => $tableNo,
+                    'category' => $response2->json(),
+                ]);
+            } else {
+                // Handle unsuccessful responses
+                return redirect()->back()->withErrors(['error' => 'Failed to fetch data from the server.']);
+            }
+        } catch (Exception $e) {
+            // Log the exception for debugging
+            Log::error('Error in homeBack:', ['message' => $e->getMessage()]);
+
+            // Redirect with error message
+            return redirect()->back()->withErrors(['error' => 'An unexpected error occurred.']);
         }
     }
+
 
 
     public function cart()
