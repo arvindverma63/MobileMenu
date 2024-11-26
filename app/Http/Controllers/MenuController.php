@@ -23,12 +23,12 @@ class MenuController extends Controller
                 'tableNo' => $request->input('tableNo'),
             ]);
 
-            Cache::put('restaurantId',$request['restaurantId']);
-            Cache::put('tableNo',$request['tableNo']);
+            Cache::put('restaurantId', $request['restaurantId']);
+            Cache::put('tableNo', $request['tableNo']);
 
             // Check if the request was successful (200 OK)
             if ($response->successful()) {
-                return view('index',['data'=>$response->json(),'tableNo'=>$request['tableNo']]);
+                return view('index', ['data' => $response->json(), 'tableNo' => $request['tableNo']]);
             } else {
                 // Handle unsuccessful responses
                 return response()->json([
@@ -46,20 +46,31 @@ class MenuController extends Controller
         }
     }
 
-    public function homeBack(){
+    public function homeBack()
+    {
         $response = Http::get(env('API_BASE_URL') . '/webMenu', [
             'restaurantId' => Cache::get('restaurantId'),
             'tableNo' => Cache::get('tableNo'),
         ]);
 
+        $response2 = Http::get(env('API_BASE_URL') . '/webMenu/categories', [
+            'restaurantId' => Cache::get('restaurantId'),
+        ]);
+
 
         // Check if the request was successful (200 OK)
         if ($response->successful()) {
-            return view('index',['data'=>$response->json(),'tableNo'=>Cache::get('tableNo')]);
+            return view('index', [
+                'data' => $response->json(),
+                'tableNo' => Cache::get('tableNo'),
+                'category' => $response2->json(),
+            ]);
         }
     }
 
-    public function cart(){
+
+    public function cart()
+    {
         return view('cart');
     }
- }
+}

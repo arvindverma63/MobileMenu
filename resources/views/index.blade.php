@@ -37,13 +37,13 @@
         <!-- Categories Section -->
         <h5 class="mb-3">Categories</h5>
         <div class="card-container d-flex overflow-auto category-scroll">
-            @foreach ($data as $menu)
+            @foreach ($category as $cat)
                 <div class="me-3 text-center" style="flex: 0 0 auto;">
                     <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border"
                         style="width: 80px; height: 80px; overflow: hidden;">
-                        <img src="{{ $menu['itemImage'] }}" alt="" class="img-fluid">
+                        <img src="{{ $cat['categoryImage'] }}" alt="" class="img-fluid">
                     </div>
-                    <p class="mt-2 small text-muted mb-0">{{ $menu['category'] }}</p>
+                    <p class="mt-2 small text-muted mb-0">{{ $cat['categoryName'] }}</p>
                 </div>
             @endforeach
         </div>
