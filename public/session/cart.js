@@ -86,6 +86,60 @@
     // Populate cart on page load
     document.addEventListener('DOMContentLoaded', populateCart);
 
-    function makeOrder(){
+    document.getElementById('submit-data').addEventListener('click', function () {
+        // Retrieve data from localStorage
+        var orders = localStorage.getItem('orders');
+        var parsedOrders = JSON.parse(orders); // Parse orders into an object
 
-    }
+        // Get form inputs
+        var restaurantId = document.getElementById('restaurantId').value;
+        var tableNo = document.getElementById('tableNo').value;
+        var uname = document.getElementById('username').value;
+        var email = document.getElementById('useremail').value;
+        var phone = document.getElementById('phonenumber').value;
+        var address = document.getElementById('address').value;
+        var api_base_url = document.getElementById('api_base_url').value;
+
+        // Retrieve the CSRF token from the meta tag
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Validate inputs
+        if (!restaurantId || !tableNo || !uname || !parsedOrders) {
+            alert("Please fill in all required fields and ensure there are items in your cart.");
+            return;
+        }
+
+        // Create a FormData object
+        var formData = new FormData();
+        formData.append('restaurantId', restaurantId);
+        formData.append('tableNumber', tableNo);
+        formData.append('userName', uname);
+        formData.append('email', email);
+        formData.append('phoneNumber', phone);
+        formData.append('address', address);
+        formData.append('orderDetails', JSON.stringify(parsedOrders)); // Send orders as JSON
+
+        // Send data to API
+        fetch(api_base_url + '/addOrder', {
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken, // Include the CSRF token in the header
+            },
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle API response
+                if (data.success) {
+                    alert("Order placed successfully!");
+                    localStorage.removeItem('orders'); // Clear the cart
+                    // Redirect or update UI as needed
+                } else {
+                    alert("Failed to place order: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error submitting data:", error);
+                alert("An error occurred while placing the order.");
+            });
+    });
