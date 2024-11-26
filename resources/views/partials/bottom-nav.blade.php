@@ -1,7 +1,7 @@
 <!-- Bottom Navigation Bar -->
 <div class="position-fixed bottom-0 w-100 bg-light border-top shadow-sm">
     <div class="d-flex justify-content-around py-2">
-        <a href="#" class="text-center text-decoration-none text-dark">
+        <a href="{{route('home')}}" class="text-center text-decoration-none text-dark">
             <i class="fas fa-home fa-lg {{Route::is('home')? 'active': ''}}"></i> <!-- Home Icon -->
             <p class="mb-0 small">Home</p>
         </a>
