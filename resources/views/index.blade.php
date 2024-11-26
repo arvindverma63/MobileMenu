@@ -34,19 +34,24 @@
             </div>
         </div>
 
-        <!-- Categories Section -->
-        <h5 class="mb-3">Categories</h5>
-        <div class="card-container d-flex overflow-auto category-scroll">
-            @foreach ($category as $cat)
-                <div class="me-3 text-center" style="flex: 0 0 auto;">
-                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border"
-                        style="width: 80px; height: 80px; overflow: hidden;">
-                        <img src="{{ $cat['categoryImage'] }}" alt="" class="img-fluid">
+        @if (!empty($category))
+            <h5 class="mb-3">Categories</h5>
+            <div class="card-container d-flex overflow-auto category-scroll">
+                @foreach ($category as $cat)
+                    <div class="me-3 text-center" style="flex: 0 0 auto;">
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center shadow-sm border"
+                            style="width: 80px; height: 80px; overflow: hidden;">
+                            <img src="{{ $cat['categoryImage'] }}" alt="" class="img-fluid">
+                        </div>
+                        <p class="mt-2 small text-muted mb-0">{{ $cat['categoryName'] }}</p>
                     </div>
-                    <p class="mt-2 small text-muted mb-0">{{ $cat['categoryName'] }}</p>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @else
+            <p>No categories available.</p>
+        @endif
+
+
 
         <!-- Restaurant Section -->
         <div class="restaurant-section d-flex justify-content-between align-items-center mt-4 mb-3" id="items">
@@ -87,7 +92,7 @@
         </div>
     </div>
 
-    <script src="{{asset('session/session.js')}}"></script>
+    <script src="{{ asset('session/session.js') }}"></script>
 
 
     @include('partials.bottom-nav')

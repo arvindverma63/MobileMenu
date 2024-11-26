@@ -28,9 +28,14 @@ class MenuController extends Controller
             Cache::put('restaurantId', $request['restaurantId']);
             Cache::put('tableNo', $request['tableNo']);
 
+             // Fetch category data
+             $response2 = Http::get(env('API_BASE_URL') . '/webMenu/categories', [
+                'restaurantId' => $request['restaurantId'],
+            ]);
+
             // Check if the request was successful (200 OK)
             if ($response->successful()) {
-                return view('index', ['data' => $response->json(), 'tableNo' => $request['tableNo']]);
+                return view('index', ['data' => $response->json(),'category'=>$response2->json(), 'tableNo' => $request['tableNo']]);
             } else {
                 // Handle unsuccessful responses
                 return response()->json([
