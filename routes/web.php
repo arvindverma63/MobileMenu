@@ -24,3 +24,4 @@ Route::get('/getData', [
 ]);
 Route::get('/home',[MenuController::class,'homeBack'])->name('home');
 Route::get('/filter/{id}',[FilterController::class,'filter']);
+Route::get('/cooking',[MenuController::class,'cooking']);

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+use function PHPUnit\Framework\returnValue;
+
 class MenuController extends Controller
 {
     public function welcome(Request $request)
@@ -100,5 +102,8 @@ class MenuController extends Controller
     public function cart()
     {
         return view('cart');
+    }
+    public function cooking(){
+        return view('cooking');
     }
 }

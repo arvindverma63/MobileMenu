@@ -131,9 +131,9 @@
             .then(data => {
                 // Handle API response
                 if (data.success) {
-                    alert("Order placed successfully!");
                     localStorage.removeItem('orders'); // Clear the cart
                     // Redirect or update UI as needed
+                    window.location.href = '/cooking';
                 } else {
                     alert("Failed to place order: " + data.message);
                 }
