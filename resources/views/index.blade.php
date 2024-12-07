@@ -26,8 +26,8 @@
                         <img src="foodImages/1.jpeg" class="card-img" alt="Offer">
                         <div
                             class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
-                            <h3 class="fw-bold">50% OFF</h3>
-                            <p class="mb-0">First Order</p>
+                            {{-- <h3 class="fw-bold">50% OFF</h3>
+                            <p class="mb-0">First Order</p> --}}
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,9 @@
                                         @endforeach
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-primary btn-sm" data-id="{{ $restaurant['id'] }}">Order
-                                            Now</button>
+                                        <button class="btn btn-primary btn-sm order-btn" data-id="{{ $restaurant['id'] }}" onclick="changeButtonText(this)">
+                                            Order Now
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +102,19 @@
 
     <!-- Font Awesome CDN -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        function changeButtonText(button) {
+            // Change the button text to "Added"
+            button.textContent = "Added";
+
+            // Optionally, disable the button to prevent further clicks
+            button.disabled = true;
+
+            // Add a class for styling (optional)
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-success');
+        }
+    </script>
 
 
     @include('partials.footer')
