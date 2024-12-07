@@ -23,6 +23,9 @@
                     <div class="form-group mt-2">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit Feedback</dutton>
                     </div>
+                    <div class="form-group mt-2">
+                        <a href="/home" class="btn btn-success btn-lg btn-block">Back to Home</dutton>
+                    </div>
                   </form>
             </div>
         </div>
